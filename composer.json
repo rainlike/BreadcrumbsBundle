@@ -1,0 +1,23 @@
+{
+  "name": "rainlike/breadcrumbs-bundle",
+  "description": "Bundle for generation breadcrumbs in Symfony3 application.",
+  "version": "0.0.1",
+  "type": "symfony-bundle",
+  "homepage": "https://github.com/rainlike/BreadcrumbsBundle",
+  "license": "MIT",
+  "keywords": [ "breadcrumb", "breadcrumbs", "symfony", "bundle" ],
+  "authors": [
+    {
+      "name": "Alex Saveliev",
+      "email": "savelievaleks@hotmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.0",
+    "symfony/symfony": "^3.2"
+  },
+  "autoload" : {
+    "psr-4" : { "Rainlike\\BreadcrumbsBundle\\" : "" }
+  }
+}

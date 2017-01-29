@@ -23,7 +23,7 @@ class BreadcrumbItem
 
     /**
      * Parameters of route
-     * @var array|null
+     * @var array
      */
     private $route_parameters;
 
@@ -32,9 +32,9 @@ class BreadcrumbItem
      *
      * @param string $label
      * @param string|null $route
-     * @param array|null $routeParameters
+     * @param array $routeParameters
      */
-    public function __construct(string $label, ?string $route = null, ?array $routeParameters = null)
+    public function __construct(string $label, ?string $route = null, array $routeParameters = [])
     {
         $this->label = $label;
         $this->route = $route;
@@ -61,9 +61,9 @@ class BreadcrumbItem
 
     /**
      * Get route parameters of Breadcrumb
-     * @return array|null
+     * @return array
      */
-    public function getRouteParameters(): ?array
+    public function getRouteParameters(): array
     {
         return $this->route_parameters;
     }
