@@ -3,9 +3,10 @@ declare(strict_types = 1);
 
 namespace Rainlike\BreadcrumbsBundle\Service;
 
-use Rainlike\BreadcrumbsBundle\Model\BreadcrumbItem;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Translation\Translator;
+
+use Rainlike\BreadcrumbsBundle\Model\BreadcrumbItem;
 
 /**
  * Class Breadcrumbs
@@ -43,7 +44,7 @@ class Breadcrumbs
 
     /**
      * Modifications
-     * @var bool $translation_mod: enable translation
+     * @var bool $translation_mod: enable translations
      */
     private $translation_mod = true;
 
@@ -63,9 +64,9 @@ class Breadcrumbs
      * Set translation mod
      *
      * @param bool $translation_mod
-     * @return $this
+     * @return Breadcrumbs
      */
-    public function setTranslationMod(bool $translation_mod)
+    public function setTranslationMod(bool $translation_mod = true): Breadcrumbs
     {
         $this->translation_mod = $translation_mod;
 
