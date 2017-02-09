@@ -83,7 +83,7 @@ class Breadcrumbs
     }
 
     /**
-     * Add new Breadcrumbs item
+     * Add new item of Breadcrumbs
      *
      * @param string $label
      * @param string|null $route
@@ -102,6 +102,16 @@ class Breadcrumbs
         $this->items[] = new BreadcrumbItem($translatedLabel, $route, $routeParameters);
 
         return $this;
+    }
+
+    /**
+     * Get Breadcrumbs items
+     *
+     * @return array
+     */
+    public function getItems(): array
+    {
+        return $this->items;
     }
 
     /**
