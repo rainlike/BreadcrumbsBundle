@@ -93,7 +93,7 @@ class Breadcrumbs
      */
     public function addItem(
         string $label,
-        ?string $route = null,
+        string $route = null,
         array $routeParameters = [],
         array $translationParameters = []
     ): Breadcrumbs {

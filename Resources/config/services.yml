@@ -1,5 +1,4 @@
 services:
-    # Services
     rainlike.breadcrumbs:
         class: Rainlike\BreadcrumbsBundle\Service\Breadcrumbs
         arguments:
