@@ -162,6 +162,7 @@ class Breadcrumbs
      */
     private function translateItem(string $label, array $parameters = []): string
     {
+        $domain = null;
         if (array_key_exists('domain', $parameters)) {
             $domain = $parameters['domain'];
             unset($parameters['domain']);
