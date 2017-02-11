@@ -37,6 +37,12 @@ class Breadcrumbs
     const DEFAULT_SEPARATOR = ' / ';
 
     /**
+     * Translation domain
+     * @var string
+     */
+    private $translation_domain;
+
+    /**
      * Storage of BreadcrumbItems
      * @var array
      */
@@ -61,14 +67,46 @@ class Breadcrumbs
     }
 
     /**
-     * Set translation mod
+     * Set translation domain
      *
-     * @param bool $translation_mod
+     * @param string $translationDomain
      * @return Breadcrumbs
      */
-    public function setTranslationMod(bool $translation_mod = true): Breadcrumbs
+    public function setTranslationDomain(string $translationDomain): Breadcrumbs
     {
-        $this->translation_mod = $translation_mod;
+        $this->translation_domain = $translationDomain;
+
+        return $this;
+    }
+
+    /**
+     * Get correct translation domain
+     *
+     * @param string|null $itemDomain
+     * @return string
+     */
+    public function getTranslationDomain(string $itemDomain = null): string
+    {
+        if (!is_null($itemDomain)) {
+            return $itemDomain;
+        }
+
+        if (isset($this->translation_domain)) {
+            return $this->translation_domain;
+        }
+
+        return self::DEFAULT_DOMAIN;
+    }
+
+    /**
+     * Set translation mod
+     *
+     * @param bool $translationMod
+     * @return Breadcrumbs
+     */
+    public function setTranslationMod(bool $translationMod = true): Breadcrumbs
+    {
+        $this->translation_mod = $translationMod;
 
         return $this;
     }
@@ -116,6 +154,7 @@ class Breadcrumbs
 
     /**
      * Translate Breadcrumb item
+     * -helper function
      *
      * @param string $label
      * @param array $parameters
@@ -123,8 +162,13 @@ class Breadcrumbs
      */
     private function translateItem(string $label, array $parameters = []): string
     {
+        if (array_key_exists('domain', $parameters)) {
+            $domain = $parameters['domain'];
+            unset($parameters['domain']);
+        }
+
         return $this->translation_mod
-            ? $this->translator->trans($label, $parameters)
+            ? $this->translator->trans($label, $parameters, $this->getTranslationDomain($domain))
             : $label;
     }
 
