@@ -27,10 +27,16 @@ class RainlikeBreadcrumbsExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+        $container->setParameter('rainlike_breadcrumbs', []);
+        $container->setParameter('rainlike_breadcrumbs.enable_translation', $config['enable_translation']);
+        $container->setParameter('rainlike_breadcrumbs.translation_domain', $config['translation_domain']);
+        $container->setParameter('rainlike_breadcrumbs.template', $config['template']);
+        $container->setParameter('rainlike_breadcrumbs.separator', $config['separator']);
     }
+
 }
