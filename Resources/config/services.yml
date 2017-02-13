@@ -1,6 +1,18 @@
 services:
     rainlike.breadcrumbs:
-        class: Rainlike\BreadcrumbsBundle\Service\Breadcrumbs
+        class: Rainlike\BreadcrumbsBundle\Service\BreadcrumbsBuilder
+    rainlike.breadcrumbs.processor:
+        class: Rainlike\BreadcrumbsBundle\Service\BreadcrumbsProcessor
         arguments:
             - "@router"
             - "@translator.default"
+            - "@templating"
+            - "%rainlike_breadcrumbs%"
+
+    rainlike.breadcrumbs.extension:
+        class: Rainlike\AdminBundle\Twig\Extension\BreadcrumbsExtension
+        arguments:
+            - "@rainlike.breadcrumbs"
+            - "@rainlike.breadcrumbs.processor"
+        tags:
+            - { name: twig.extension }

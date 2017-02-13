@@ -21,6 +21,22 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('rainlike_breadcrumbs');
 
+        $rootNode
+            ->children()
+                ->booleanNode('enable_translation')
+                    ->defaultTrue()
+                ->end()
+                ->scalarNode('translation_domain')
+                    ->defaultValue('messages')
+                ->end()
+                ->scalarNode('template')
+                    ->defaultValue('breadcrumbs.html.twig')
+                ->end()
+                ->scalarNode('separator')
+                    ->defaultValue(' / ')
+                ->end()
+            ->end();
+
         return $treeBuilder;
     }
 }

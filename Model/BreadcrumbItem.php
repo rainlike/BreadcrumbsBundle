@@ -28,21 +28,34 @@ class BreadcrumbItem
     private $route_parameters;
 
     /**
-     * BreadcrumbItem constructor.
+     * Parameters for translation
+     * @var array
+     */
+    private $translation_parameters;
+
+    /**
+     * BreadcrumbItem constructor
      *
      * @param string $label
      * @param string|null $route
      * @param array $routeParameters
+     * @param array $translationParameters
      */
-    public function __construct(string $label, string $route = null, array $routeParameters = [])
-    {
+    public function __construct(
+        string $label,
+        string $route = null,
+        array $routeParameters = [],
+        array $translationParameters = []
+    ) {
         $this->label = $label;
         $this->route = $route;
         $this->route_parameters = $routeParameters;
+        $this->translation_parameters = $translationParameters;
     }
 
     /**
      * Get label of Breadcrumb
+     *
      * @return string
      */
     public function getLabel(): string
@@ -52,6 +65,7 @@ class BreadcrumbItem
 
     /**
      * Get route of Breadcrumb
+     *
      * @return string|null
      */
     public function getRoute(): string
@@ -61,11 +75,22 @@ class BreadcrumbItem
 
     /**
      * Get route parameters of Breadcrumb
+     *
      * @return array
      */
     public function getRouteParameters(): array
     {
         return $this->route_parameters;
+    }
+
+    /**
+     * Get translation parameters of Breadcrumb
+     *
+     * @return array
+     */
+    public function getTranslationParameters(): array
+    {
+        return $this->translation_parameters;
     }
 
 }
