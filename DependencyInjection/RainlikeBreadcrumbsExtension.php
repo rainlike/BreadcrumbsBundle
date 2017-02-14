@@ -32,7 +32,6 @@ class RainlikeBreadcrumbsExtension extends Extension
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        $container->setParameter('rainlike_breadcrumbs', []);
         $container->setParameter('rainlike_breadcrumbs.enable_translation', $config['enable_translation']);
         $container->setParameter('rainlike_breadcrumbs.translation_domain', $config['translation_domain']);
         $container->setParameter('rainlike_breadcrumbs.template', $config['template']);

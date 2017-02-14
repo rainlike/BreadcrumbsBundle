@@ -125,4 +125,19 @@ class BreadcrumbsBuilder
         return $this->items;
     }
 
+    /**
+     * Get configurations of build
+     *
+     * @return array
+     */
+    public function getConfigs(): array
+    {
+        return [
+            'enable_translation' => $this->enable_translation,
+            'translation_domain' => $this->translation_domain,
+            'template' => $this->template,
+            'separator' => $this->separator
+        ];
+    }
+
 }

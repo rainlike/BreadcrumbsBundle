@@ -7,7 +7,7 @@ services:
             - "@router"
             - "@translator.default"
             - "@templating"
-            - "%rainlike_breadcrumbs%"
+            - "@kernel"
 
     rainlike.breadcrumbs.extension:
         class: Rainlike\AdminBundle\Twig\Extension\BreadcrumbsExtension

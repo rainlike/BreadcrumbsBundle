@@ -3,7 +3,8 @@ declare(strict_types = 1);
 
 namespace Rainlike\BreadcrumbsBundle\Twig;
 
-use Rainlike\BreadcrumbsBundle\Service\Breadcrumbs;
+use Rainlike\BreadcrumbsBundle\Service\BreadcrumbsBuilder as Builder;
+use Rainlike\BreadcrumbsBundle\Service\BreadcrumbsProcessor as Processor;
 
 /**
  * Class BreadcrumbsExtension
@@ -12,16 +13,25 @@ use Rainlike\BreadcrumbsBundle\Service\Breadcrumbs;
 class BreadcrumbsExtension extends \Twig_Extension
 {
     /**
-     * @var Breadcrumbs
+     * @var Builder
      */
-    private $breadcrumbs;
+    private $builder;
 
     /**
-     * @param string $breadcrumbs
+     * @var Processor
      */
-    public function __construct($breadcrumbs)
+    private $processor;
+
+    /**
+     * BreadcrumbsExtension constructor
+     *
+     * @param Builder $builder
+     * @param Processor $processor
+     */
+    public function __construct(Builder $builder, Processor $processor)
     {
-        $this->breadcrumbs = $breadcrumbs;
+        $this->builder = $builder;
+        $this->processor = $processor;
     }
 
     /**
@@ -37,7 +47,7 @@ class BreadcrumbsExtension extends \Twig_Extension
                 'rainlike_breadcrumbs',
                 [ $this, 'renderBreadcrumbs' ],
                 [
-                    'is_safe' => [ 'html' ],
+                    'is_safe' => ['html'],
                     'needs_environment' => true,
                     'needs_context' => true
                 ]
@@ -48,12 +58,12 @@ class BreadcrumbsExtension extends \Twig_Extension
     /**
      * Render breadcrumbs
      *
-     * @param array $context
-     * @return void
+     * @param array $configs
+     * @return string
      */
-    public function renderBreadcrumbs(array $context)
+    public function renderBreadcrumbs(array $configs)
     {
-        return;
+        return $this->processor->render($this->builder, $configs);
     }
 
     /**
