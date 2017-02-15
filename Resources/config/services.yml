@@ -10,7 +10,7 @@ services:
             - "@kernel"
 
     rainlike.breadcrumbs.extension:
-        class: Rainlike\AdminBundle\Twig\Extension\BreadcrumbsExtension
+        class: Rainlike\BreadcrumbsBundle\Twig\BreadcrumbsExtension
         arguments:
             - "@rainlike.breadcrumbs"
             - "@rainlike.breadcrumbs.processor"
