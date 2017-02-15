@@ -48,7 +48,7 @@ class BreadcrumbProcessItem
      *
      * @return string|null
      */
-    public function getRoute(): string
+    public function getRoute()
     {
         return $this->route;
     }

@@ -113,7 +113,9 @@ class BreadcrumbsProcessor
         foreach ($buildItems as $buildItem) {
             $breadcrumbs[] = new BreadcrumbProcessItem(
                 $this->translateItem($buildItem),
-                $this->router->generate($buildItem->getRoute(), $buildItem->getRouteParameters())
+                $buildItem->getRoute()
+                    ? $this->router->generate($buildItem->getRoute(), $buildItem->getRouteParameters())
+                    : $buildItem->getRoute()
             );
         }
 
