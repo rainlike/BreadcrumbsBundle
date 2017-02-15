@@ -30,7 +30,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('messages')
                 ->end()
                 ->scalarNode('template')
-                    ->defaultValue('breadcrumbs.html.twig')
+                    ->defaultValue('RainlikeBreadcrumbsBundle::breadcrumbs.html.twig')
                 ->end()
                 ->scalarNode('separator')
                     ->defaultValue(' / ')

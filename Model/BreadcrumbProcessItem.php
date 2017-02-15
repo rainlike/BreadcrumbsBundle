@@ -16,21 +16,21 @@ class BreadcrumbProcessItem
     private $label;
 
     /**
-     * Route of Breadcrumb
+     * URL of Breadcrumb
      * @var string|null
      */
-    private $route;
+    private $url;
 
     /**
      * BreadcrumbProcessItem constructor
      *
      * @param string $label
-     * @param string|null $route
+     * @param string|null $url
      */
-    public function __construct(string $label, string $route = null)
+    public function __construct(string $label, string $url = null)
     {
         $this->label = $label;
-        $this->route = $route;
+        $this->url = $url;
     }
 
     /**
@@ -44,13 +44,13 @@ class BreadcrumbProcessItem
     }
 
     /**
-     * Get route of Breadcrumb
+     * Get URL of Breadcrumb
      *
      * @return string|null
      */
-    public function getRoute()
+    public function getUrl()
     {
-        return $this->route;
+        return $this->url;
     }
 
 }
