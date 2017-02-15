@@ -61,7 +61,7 @@ class BreadcrumbsExtension extends \Twig_Extension
      * @param array $configs
      * @return string
      */
-    public function renderBreadcrumbs(array $configs)
+    public function renderBreadcrumbs(?array $configs = [])
     {
         return $this->processor->render($this->builder, $configs);
     }
