@@ -1,8 +1,8 @@
 {% for item in items %}
     {% if item.url %}
-        <a href="{{ item.route }}">{{ item.label }}</a>
+        <a href="{{ item.url }}">{{ item.label }}</a>
     {% else %}
         {{ item.label }}
     {% endif %}
-    {% if not loop.last %}{{ ' / ' }}{% endif %}
+    {% if not loop.last %}{{ separator }}{% endif %}
 {% endfor %}

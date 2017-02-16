@@ -61,12 +61,12 @@ class BreadcrumbsProcessor
      * @var string
      */
     const DEFAULT_TEMPLATE = 'default_template.html.twig';
-//
-//    /**
-//     * Default separator of breadcrumbs
-//     * @var string
-//     */
-//    const DEFAULT_SEPARATOR = ' / ';
+
+    /**
+     * Default separator of breadcrumbs
+     * @var string
+     */
+    const DEFAULT_SEPARATOR = ' / ';
 //
 //    /**
 //     * Name for render breadcrumbs in Twig
@@ -111,11 +111,13 @@ class BreadcrumbsProcessor
         $breadcrumbs = [];
 
         foreach ($buildItems as $buildItem) {
+            $url = $buildItem->getRoute()
+                ? $this->router->generate($buildItem->getRoute(), $buildItem->getRouteParameters())
+                : null;
+
             $breadcrumbs[] = new BreadcrumbProcessItem(
                 $this->translateItem($buildItem),
-                $buildItem->getRoute()
-                    ? $this->router->generate($buildItem->getRoute(), $buildItem->getRouteParameters())
-                    : $buildItem->getRoute()
+                $url
             );
         }
 
@@ -136,7 +138,10 @@ class BreadcrumbsProcessor
 
         $items = $this->process($builder->getItems());
 
-        return $this->twig->render($this->getTemplate(), $items);
+        return $this->twig->render($this->getTemplate(), [
+            'items' => $items,
+            'separator' => $this->getSeparator()
+        ]);
     }
 
     /**
@@ -200,6 +205,25 @@ class BreadcrumbsProcessor
             return (string)$this->kernel->getContainer()->getParameter('rainlike_breadcrumbs.template');
         } else {
             return self::DEFAULT_TEMPLATE;
+        }
+    }
+
+    /**
+     * Get separator for Breadcrumbs
+     * -helper function
+     *
+     * @return string
+     */
+    private function getSeparator()
+    {
+        if (isset($this->process_configs['separator'])) {
+            return (string)$this->process_configs['separator'];
+        } elseif (isset($this->builder->getConfigs()['separator'])) {
+            return (string)$this->builder->getConfigs()['separator'];
+        } elseif ($this->kernel->getContainer()->hasParameter('rainlike_breadcrumbs.separator')) {
+            return (string)$this->kernel->getContainer()->getParameter('rainlike_breadcrumbs.separator');
+        } else {
+            return self::DEFAULT_SEPARATOR;
         }
     }
 
