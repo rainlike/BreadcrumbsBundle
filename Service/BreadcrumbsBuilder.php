@@ -3,7 +3,8 @@ declare(strict_types = 1);
 
 namespace Rainlike\BreadcrumbsBundle\Service;
 
-use Rainlike\BreadcrumbsBundle\Model\BreadcrumbItem;
+use Rainlike\BreadcrumbsBundle\Model\BreadcrumbItem as Item;
+use Rainlike\BreadcrumbsBundle\Service\BreadcrumbsProcessor as Processor;
 
 /**
  * Class BreadcrumbsBuilder
@@ -15,7 +16,7 @@ class BreadcrumbsBuilder
      * Builder configurations:
      * @var $enable_translation bool
      */
-    private $enable_translation = true;
+    private $enable_translation;
 
     /**
      * @var string
@@ -105,7 +106,7 @@ class BreadcrumbsBuilder
         array $routeParameters = [],
         array $translationParameters = []
     ): BreadcrumbsBuilder {
-        $this->items[] = new BreadcrumbItem(
+        $this->items[] = new Item(
             $label,
             $route,
             $routeParameters,
@@ -138,6 +139,26 @@ class BreadcrumbsBuilder
             'template' => $this->template,
             'separator' => $this->separator
         ];
+    }
+
+    /**
+     * Get name of function for render breadcrumbs in Twig
+     *
+     * @return string
+     */
+    public function getTwigFunctionName(): string
+    {
+        return Processor::$twig_function_name;
+    }
+
+    /**
+     * Get possible translation parameters for Breadcrumb item
+     *
+     * @return array
+     */
+    public function getPossibleTranslationParameters(): array
+    {
+        return Processor::$possible_translation_parameters;
     }
 
 }

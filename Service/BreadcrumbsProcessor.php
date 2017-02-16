@@ -4,12 +4,11 @@ declare(strict_types = 1);
 namespace Rainlike\BreadcrumbsBundle\Service;
 
 use Symfony\Component\Routing\Router;
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Translation\Translator;
 use Symfony\Bundle\TwigBundle\TwigEngine as Twig;
 
-use Rainlike\BreadcrumbsBundle\Model\BreadcrumbItem;
-use Rainlike\BreadcrumbsBundle\Model\BreadcrumbProcessItem;
+use Rainlike\BreadcrumbsBundle\Model\BreadcrumbProcessItem as ProcessItem;
+
+use Rainlike\BreadcrumbsBundle\Helper\BreadcrumbsHelper as Helper;
 
 use Rainlike\BreadcrumbsBundle\Service\BreadcrumbsBuilder as Builder;
 
@@ -25,24 +24,19 @@ class BreadcrumbsProcessor
     private $router;
 
     /**
-     * @var Translator
-     */
-    private $translator;
-
-    /**
      * @var Twig
      */
     private $twig;
 
     /**
+     * @var Helper
+     */
+    private $helper;
+
+    /**
      * @var Builder
      */
     private $builder;
-
-    /**
-     * @var Kernel
-     */
-    private $kernel;
 
     /**
      * Default enable translation value
@@ -67,37 +61,49 @@ class BreadcrumbsProcessor
      * @var string
      */
     const DEFAULT_SEPARATOR = ' / ';
-//
-//    /**
-//     * Name for render breadcrumbs in Twig
-//     * @var string
-//     */
-//    public static $twig_function_name = 'rainlike_breadcrumbs';
 
     /**
-     * Processing configurations
+     * Name for render breadcrumbs in Twig
+     * @var string
+     */
+    public static $twig_function_name = 'rainlike_breadcrumbs';
+
+    /**
+     * Possible translation parameters for Breadcrumb item
+     *
      * @var array
      */
-    private $process_configs;
+    public static $possible_translation_parameters = [
+        'enable_translation',
+        'translation_domain'
+    ];
 
     /**
-     * Breadcrumbs constructor
+     * BreadcrumbsProcessor constructor
      *
      * @param Router $router
-     * @param Translator $translator
      * @param Twig $twig
-     * @param Kernel $kernel
+     * @param Helper $helper
      */
     public function __construct(
         Router $router,
-        Translator $translator,
         Twig $twig,
-        Kernel $kernel
+        Helper $helper
     ) {
         $this->router = $router;
-        $this->translator = $translator;
         $this->twig = $twig;
-        $this->kernel = $kernel;
+        $this->helper = $helper;
+    }
+
+    /**
+     * Get value of constant
+     *
+     * @param string $name
+     * @return mixed|string|bool
+     */
+    public static function getConstant(string $name)
+    {
+        return constant($name);
     }
 
     /**
@@ -115,8 +121,8 @@ class BreadcrumbsProcessor
                 ? $this->router->generate($buildItem->getRoute(), $buildItem->getRouteParameters())
                 : null;
 
-            $breadcrumbs[] = new BreadcrumbProcessItem(
-                $this->translateItem($buildItem),
+            $breadcrumbs[] = new ProcessItem(
+                $this->helper->translateItem($buildItem),
                 $url
             );
         }
@@ -134,117 +140,16 @@ class BreadcrumbsProcessor
     public function render(Builder $builder, array $configs)
     {
         $this->builder = $builder;
-        $this->process_configs = $configs;
+
+        $this->helper->setBuilderConfigs($this->builder->getConfigs());
+        $this->helper->setProcessConfigs($configs);
 
         $items = $this->process($builder->getItems());
 
-        return $this->twig->render($this->getTemplate(), [
+        return $this->twig->render($this->helper->getConfig('template'), [
             'items' => $items,
-            'separator' => $this->getSeparator()
+            'separator' => $this->helper->getConfig('separator')
         ]);
-    }
-
-    /**
-     * Translate Breadcrumb item
-     * -helper function
-     *
-     * @param BreadcrumbItem $item
-     * @return string
-     */
-    private function translateItem(BreadcrumbItem $item): string
-    {
-        if (!$this->getConfig($item, 'enable_translation')) {
-            return $item->getLabel();
-        }
-
-        $domain = $this->getConfig($item, 'translation_domain');
-        $parameters = $this->prepareTranslationParameters($item->getTranslationParameters());
-
-        return $this->translator->trans($item->getLabel(), $parameters, $domain);
-    }
-
-    /**
-     * Get Breadcrumb config by name
-     * -helper function
-     *
-     * @param BreadcrumbItem $item
-     * @param string $configName
-     * @return bool|string|mixed
-     */
-    private function getConfig(BreadcrumbItem $item, string $configName)
-    {
-        $kernelConfigName = 'rainlike_breadcrumbs.'.$configName;
-        $constName = 'DEFAULT_'.strtoupper($configName);
-
-        if (isset($item->getTranslationParameters()[$configName])) {
-            return $item->getTranslationParameters()[$configName];
-        } elseif (isset($this->process_configs[$configName])) {
-            return $this->process_configs[$configName];
-        } elseif (isset($this->builder->getConfigs()[$configName])) {
-            return $this->builder->getConfigs()[$configName];
-        } elseif ($this->kernel->getContainer()->hasParameter($kernelConfigName)) {
-            return $this->kernel->getContainer()->getParameter($kernelConfigName);
-        } else {
-            return constant($constName);
-        }
-    }
-
-    /**
-     * Get Template for Breadcrumbs
-     * -helper function
-     *
-     * @return string
-     */
-    private function getTemplate()
-    {
-        if (isset($this->process_configs['template'])) {
-            return (string)$this->process_configs['template'];
-        } elseif (isset($this->builder->getConfigs()['template'])) {
-            return (string)$this->builder->getConfigs()['template'];
-        } elseif ($this->kernel->getContainer()->hasParameter('rainlike_breadcrumbs.template')) {
-            return (string)$this->kernel->getContainer()->getParameter('rainlike_breadcrumbs.template');
-        } else {
-            return self::DEFAULT_TEMPLATE;
-        }
-    }
-
-    /**
-     * Get separator for Breadcrumbs
-     * -helper function
-     *
-     * @return string
-     */
-    private function getSeparator()
-    {
-        if (isset($this->process_configs['separator'])) {
-            return (string)$this->process_configs['separator'];
-        } elseif (isset($this->builder->getConfigs()['separator'])) {
-            return (string)$this->builder->getConfigs()['separator'];
-        } elseif ($this->kernel->getContainer()->hasParameter('rainlike_breadcrumbs.separator')) {
-            return (string)$this->kernel->getContainer()->getParameter('rainlike_breadcrumbs.separator');
-        } else {
-            return self::DEFAULT_SEPARATOR;
-        }
-    }
-
-    /**
-     * Prepare parameters for translate
-     * -helper function
-     *
-     * @param array $translationParameters
-     * @return array
-     */
-    private function prepareTranslationParameters(array $translationParameters)
-    {
-        if (isset($translationParameters['enable_translation'])) {
-            unset($translationParameters['enable_translation']);
-        }
-
-        if (isset($translationParameters['translation_domain'])) {
-            unset($translationParameters['translation_domain']);
-        }
-
-        return $translationParameters;
     }
 
 }

@@ -1,12 +1,18 @@
 services:
     rainlike.breadcrumbs:
         class: Rainlike\BreadcrumbsBundle\Service\BreadcrumbsBuilder
+
     rainlike.breadcrumbs.processor:
         class: Rainlike\BreadcrumbsBundle\Service\BreadcrumbsProcessor
         arguments:
             - "@router"
-            - "@translator.default"
             - "@templating"
+            - "@rainlike.breadcrumbs.helper"
+
+    rainlike.breadcrumbs.helper:
+        class: Rainlike\BreadcrumbsBundle\Helper\BreadcrumbsHelper
+        arguments:
+            - "@translator.default"
             - "@kernel"
 
     rainlike.breadcrumbs.extension:
