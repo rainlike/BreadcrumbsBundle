@@ -6,11 +6,9 @@ namespace Rainlike\BreadcrumbsBundle\Service;
 use Symfony\Component\Routing\Router;
 use Symfony\Bundle\TwigBundle\TwigEngine as Twig;
 
-use Rainlike\BreadcrumbsBundle\Model\BreadcrumbProcessItem as ProcessItem;
-
 use Rainlike\BreadcrumbsBundle\Helper\BreadcrumbsHelper as Helper;
-
 use Rainlike\BreadcrumbsBundle\Service\BreadcrumbsBuilder as Builder;
+use Rainlike\BreadcrumbsBundle\Model\BreadcrumbProcessItem as ProcessItem;
 
 /**
  * Class BreadcrumbsProcessor
