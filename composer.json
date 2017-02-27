@@ -1,7 +1,7 @@
 {
   "name": "rainlike/breadcrumbs-bundle",
   "description": "Bundle for generation breadcrumbs in Symfony3 application.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "symfony-bundle",
   "homepage": "https://github.com/rainlike/BreadcrumbsBundle",
   "license": "MIT",
