@@ -36,11 +36,10 @@ class BreadcrumbsExtension extends \Twig_Extension
 
     /**
      * Functions for Twig
-     * -required function
      *
      * @return array
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new \Twig_SimpleFunction(
@@ -63,14 +62,13 @@ class BreadcrumbsExtension extends \Twig_Extension
      * @param array $configs
      * @return string
      */
-    public function renderBreadcrumbs(\Twig_Environment $twig, array $context, array $configs = [])
+    public function renderBreadcrumbs(\Twig_Environment $twig, array $context, array $configs = []): string
     {
         return $this->processor->render($this->builder, $configs);
     }
 
     /**
      * Get extension name
-     * -required function
      *
      * @return string
      */
@@ -78,5 +76,4 @@ class BreadcrumbsExtension extends \Twig_Extension
     {
         return 'rainlike.breadcrumbs.extension';
     }
-
 }

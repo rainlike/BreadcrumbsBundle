@@ -68,7 +68,7 @@ class BreadcrumbItem
      *
      * @return string|null
      */
-    public function getRoute()
+    public function getRoute(): ?string
     {
         return $this->route;
     }
@@ -92,5 +92,4 @@ class BreadcrumbItem
     {
         return $this->translation_parameters;
     }
-
 }

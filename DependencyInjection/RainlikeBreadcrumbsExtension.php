@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Class RainlikeBreadcrumbsExtension
+ *
  * @package Rainlike\BreadcrumbsBundle\DependencyInjection
  */
 class RainlikeBreadcrumbsExtension extends Extension
@@ -37,5 +38,4 @@ class RainlikeBreadcrumbsExtension extends Extension
         $container->setParameter('rainlike_breadcrumbs.template', $config['template']);
         $container->setParameter('rainlike_breadcrumbs.separator', $config['separator']);
     }
-
 }

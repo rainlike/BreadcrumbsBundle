@@ -8,6 +8,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * Class Configuration
+ *
  * @package Rainlike\BreadcrumbsBundle\DependencyInjection
  * @link http://symfony.com/doc/current/cookbook/bundles/configuration.html
  */

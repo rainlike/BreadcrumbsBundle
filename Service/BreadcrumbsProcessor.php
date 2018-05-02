@@ -110,7 +110,7 @@ class BreadcrumbsProcessor
      * @param array $buildItems
      * @return array
      */
-    public function process(array $buildItems)
+    public function process(array $buildItems): array
     {
         $breadcrumbs = [];
 
@@ -135,7 +135,7 @@ class BreadcrumbsProcessor
      * @param array $configs
      * @return string
      */
-    public function render(Builder $builder, array $configs)
+    public function render(Builder $builder, array $configs): string
     {
         $this->builder = $builder;
 

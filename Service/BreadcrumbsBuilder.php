@@ -105,7 +105,8 @@ class BreadcrumbsBuilder
         string $route = null,
         array $routeParameters = [],
         array $translationParameters = []
-    ): BreadcrumbsBuilder {
+    ): BreadcrumbsBuilder
+    {
         $this->items[] = new Item(
             $label,
             $route,
@@ -160,5 +161,4 @@ class BreadcrumbsBuilder
     {
         return Processor::$possible_translation_parameters;
     }
-
 }

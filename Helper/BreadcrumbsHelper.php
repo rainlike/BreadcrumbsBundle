@@ -11,6 +11,7 @@ use Rainlike\BreadcrumbsBundle\Service\BreadcrumbsProcessor as Processor;
 
 /**
  * Class BreadcrumbsHelper
+ *
  * @package Rainlike\BreadcrumbsBundle\Helper
  */
 class BreadcrumbsHelper
@@ -122,7 +123,6 @@ class BreadcrumbsHelper
 
     /**
      * Prepare parameters for translate
-     * -helper function
      *
      * @param array $translationParameters
      * @return array
@@ -137,5 +137,4 @@ class BreadcrumbsHelper
 
         return $translationParameters;
     }
-
 }
