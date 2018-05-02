@@ -4,21 +4,30 @@ services:
 
     rainlike.breadcrumbs.processor:
         class: Rainlike\BreadcrumbsBundle\Service\BreadcrumbsProcessor
-        arguments:
-            - "@router"
-            - "@templating"
-            - "@rainlike.breadcrumbs.helper"
+        autowire: true
+        autoconfigure: true
+        public: true
+#        arguments:
+#            - "@router"
+#            - "@templating"
+#            - "@rainlike.breadcrumbs.helper"
 
     rainlike.breadcrumbs.helper:
         class: Rainlike\BreadcrumbsBundle\Helper\BreadcrumbsHelper
-        arguments:
-            - "@translator.default"
-            - "@kernel"
+        autowire: true
+        autoconfigure: true
+        public: true
+#        arguments:
+#            - "@translator.default"
+#            - "@kernel"
 
     rainlike.breadcrumbs.extension:
         class: Rainlike\BreadcrumbsBundle\Twig\BreadcrumbsExtension
-        arguments:
-            - "@rainlike.breadcrumbs"
-            - "@rainlike.breadcrumbs.processor"
+        autowire: true
+        autoconfigure: true
+        public: true
+#        arguments:
+#            - "@rainlike.breadcrumbs"
+#            - "@rainlike.breadcrumbs.processor"
         tags:
             - { name: twig.extension }

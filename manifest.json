@@ -1,0 +1,9 @@
+{
+  "bundles": {
+    "Rainlike\\BreadcrumbsBundle\\BreadcrumbsBundle": ["all"]
+  },
+  "aliases": ["rl-breadcrumbs", "rainlike-breadcrumbs"],
+  "copy-from-recipe": {
+    "Config/": "%CONFIG_DIR%/"
+  }
+}

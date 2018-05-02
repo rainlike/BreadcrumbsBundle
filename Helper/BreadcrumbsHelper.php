@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace Rainlike\BreadcrumbsBundle\Helper;
 
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\HttpKernel\KernelInterface as Kernel;
+use Symfony\Component\Translation\TranslatorInterface as Translator;
 
 use Rainlike\BreadcrumbsBundle\Model\BreadcrumbItem as Item;
 use Rainlike\BreadcrumbsBundle\Service\BreadcrumbsProcessor as Processor;
@@ -41,15 +41,15 @@ class BreadcrumbsHelper
     /**
      * BreadcrumbsHelper constructor
      *
-     * @param Translator $translator
      * @param Kernel $kernel
+     * @param Translator $translator
      */
     public function __construct(
-        Translator $translator,
-        Kernel $kernel
+        Kernel $kernel,
+        Translator $translator
     ) {
-        $this->translator = $translator;
         $this->kernel = $kernel;
+        $this->translator = $translator;
     }
 
     /**
