@@ -15,7 +15,7 @@
   ],
   "require": {
     "php": "^7.2",
-    "symfony/symfony": "*"
+    "symfony/framework-bundle": "~4.0"
   },
   "autoload" : {
     "psr-4" : { "Rainlike\\BreadcrumbsBundle\\" : "" }
