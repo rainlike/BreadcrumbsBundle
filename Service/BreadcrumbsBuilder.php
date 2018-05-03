@@ -43,9 +43,9 @@ class BreadcrumbsBuilder
      * Enable translation
      *
      * @param bool $enableTranslation
-     * @return BreadcrumbsBuilder
+     * @return self
      */
-    public function enableTranslation(bool $enableTranslation = true): BreadcrumbsBuilder
+    public function enableTranslation(bool $enableTranslation = true): self
     {
         $this->enable_translation = $enableTranslation;
 
@@ -56,9 +56,9 @@ class BreadcrumbsBuilder
      * Set translation domain
      *
      * @param string $translationDomain
-     * @return BreadcrumbsBuilder
+     * @return self
      */
-    public function setTranslationDomain(string $translationDomain): BreadcrumbsBuilder
+    public function setTranslationDomain(string $translationDomain): self
     {
         $this->translation_domain = $translationDomain;
 
@@ -69,9 +69,9 @@ class BreadcrumbsBuilder
      * Set template
      *
      * @param string $template
-     * @return BreadcrumbsBuilder
+     * @return self
      */
-    public function setTemplate(string $template): BreadcrumbsBuilder
+    public function setTemplate(string $template): self
     {
         $this->template = $template;
 
@@ -82,9 +82,9 @@ class BreadcrumbsBuilder
      * Set separator
      *
      * @param string $separator
-     * @return BreadcrumbsBuilder
+     * @return self
      */
-    public function setSeparator(string $separator): BreadcrumbsBuilder
+    public function setSeparator(string $separator): self
     {
         $this->separator = $separator;
 
@@ -98,14 +98,14 @@ class BreadcrumbsBuilder
      * @param string|null $route
      * @param array $routeParameters
      * @param array $translationParameters
-     * @return BreadcrumbsBuilder
+     * @return self
      */
     public function addItem(
         string $label,
         string $route = null,
         array $routeParameters = [],
         array $translationParameters = []
-    ): BreadcrumbsBuilder
+    ): self
     {
         $this->items[] = new Item(
             $label,

@@ -56,9 +56,9 @@ class BreadcrumbsHelper
      * Set Builder configs
      *
      * @param array $configs
-     * @return BreadcrumbsHelper
+     * @return self
      */
-    public function setBuilderConfigs(array $configs): BreadcrumbsHelper
+    public function setBuilderConfigs(array $configs): self
     {
         $this->builder_configs = $configs;
 
@@ -69,9 +69,9 @@ class BreadcrumbsHelper
      * Set Process configs
      *
      * @param array $configs
-     * @return BreadcrumbsHelper
+     * @return self
      */
-    public function setProcessConfigs(array $configs): BreadcrumbsHelper
+    public function setProcessConfigs(array $configs): self
     {
         $this->process_configs = $configs;
 
