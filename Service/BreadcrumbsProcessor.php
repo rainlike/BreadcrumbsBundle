@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace Rainlike\BreadcrumbsBundle\Service;
 
-use Symfony\Bundle\TwigBundle\TwigEngine as Twig;
 use Symfony\Component\Routing\RouterInterface as Router;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface as Twig;
 
 use Rainlike\BreadcrumbsBundle\Helper\BreadcrumbsHelper as Helper;
 use Rainlike\BreadcrumbsBundle\Service\BreadcrumbsBuilder as Builder;

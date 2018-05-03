@@ -7,27 +7,17 @@ services:
         autowire: true
         autoconfigure: true
         public: true
-#        arguments:
-#            - "@router"
-#            - "@templating"
-#            - "@rainlike.breadcrumbs.helper"
 
     rainlike.breadcrumbs.helper:
         class: Rainlike\BreadcrumbsBundle\Helper\BreadcrumbsHelper
         autowire: true
         autoconfigure: true
         public: true
-#        arguments:
-#            - "@translator.default"
-#            - "@kernel"
 
     rainlike.breadcrumbs.extension:
         class: Rainlike\BreadcrumbsBundle\Twig\BreadcrumbsExtension
         autowire: true
         autoconfigure: true
         public: true
-#        arguments:
-#            - "@rainlike.breadcrumbs"
-#            - "@rainlike.breadcrumbs.processor"
         tags:
             - { name: twig.extension }
