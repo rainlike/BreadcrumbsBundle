@@ -1,12 +1,17 @@
 services:
     rainlike.breadcrumbs:
         class: Rainlike\BreadcrumbsBundle\Service\BreadcrumbsBuilder
+        autowire: true
+        autoconfigure: true
+        public: true
 
     rainlike.breadcrumbs.processor:
         class: Rainlike\BreadcrumbsBundle\Service\BreadcrumbsProcessor
         autowire: true
         autoconfigure: true
         public: true
+        arguments:
+            $helper: '@rainlike.breadcrumbs.helper'
 
     rainlike.breadcrumbs.helper:
         class: Rainlike\BreadcrumbsBundle\Helper\BreadcrumbsHelper
@@ -19,5 +24,8 @@ services:
         autowire: true
         autoconfigure: true
         public: true
+        arguments:
+            $builder: '@rainlike.breadcrumbs'
+            $processor: '@rainlike.breadcrumbs.processor'
         tags:
             - { name: twig.extension }
